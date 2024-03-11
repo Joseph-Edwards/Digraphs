@@ -25,7 +25,7 @@
 extern Obj GeneratorsOfGroup;
 
 Digraph* new_digraph(uint16_t const nr_verts) {
-  DIGRAPHS_ASSERT(nr_verts <= MAXVERTS);
+  DIGRAPHS_ASSERT(nr_verts <= MACHINE_MAXVERTS);
   Digraph* digraph        = malloc(sizeof(Digraph));
   digraph->in_neighbours  = malloc(nr_verts * sizeof(BitArray));
   digraph->out_neighbours = malloc(nr_verts * sizeof(BitArray));
@@ -38,7 +38,7 @@ Digraph* new_digraph(uint16_t const nr_verts) {
 }
 
 Graph* new_graph(uint16_t const nr_verts) {
-  DIGRAPHS_ASSERT(nr_verts <= MAXVERTS);
+  DIGRAPHS_ASSERT(nr_verts <= MACHINE_MAXVERTS);
   Graph* graph      = malloc(sizeof(Graph));
   graph->neighbours = malloc(nr_verts * sizeof(BitArray));
   for (uint16_t i = 0; i < nr_verts; i++) {
@@ -78,7 +78,7 @@ Graph* new_graph(uint16_t const nr_verts) {
 
 void clear_digraph(Digraph* const digraph, uint16_t const nr_verts) {
   DIGRAPHS_ASSERT(digraph != NULL);
-  DIGRAPHS_ASSERT(nr_verts <= MAXVERTS);
+  DIGRAPHS_ASSERT(nr_verts <= MACHINE_MAXVERTS);
   for (uint16_t i = 0; i < nr_verts; i++) {
     init_bit_array(digraph->in_neighbours[i], false, nr_verts);
     init_bit_array(digraph->out_neighbours[i], false, nr_verts);
@@ -88,7 +88,7 @@ void clear_digraph(Digraph* const digraph, uint16_t const nr_verts) {
 
 void clear_graph(Graph* const graph, uint16_t const nr_verts) {
   DIGRAPHS_ASSERT(graph != NULL);
-  DIGRAPHS_ASSERT(nr_verts <= MAXVERTS);
+  DIGRAPHS_ASSERT(nr_verts <= MACHINE_MAXVERTS);
   for (uint16_t i = 0; i < nr_verts; i++) {
     init_bit_array(graph->neighbours[i], false, nr_verts);
   }
