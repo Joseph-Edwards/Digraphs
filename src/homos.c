@@ -45,7 +45,7 @@
 #include "digraphs-config.h"  // for DIGRAPHS_HAVE___BUILTIN_CTZLL
 #include "digraphs-debug.h"   // for DIGRAPHS_ASSERT
 #include "homos-graphs.h"     // for Digraph, Graph, . . .
-#include "perms.h"            // for MAXVERTS, homos_undefined, PermColl, Perm
+#include "perms.h"            // for homos_undefined, PermColl, Perm
 #include "schreier-sims.h"    // for PermColl, . . .
 
 ////////////////////////////////////////////////////////////////////////////////
