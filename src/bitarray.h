@@ -90,7 +90,7 @@ static void allocateMaskLookup(uint16_t new_lookup_size) {
   }
 }
 
-static void free_bitarray_lookups() {
+void free_bitarray_lookups() {
   free(mask_lookup);
   free(remainder_lookup);
   free(quotient_lookup);
@@ -98,7 +98,7 @@ static void free_bitarray_lookups() {
   lookups_initialised = false;
 }
 
-static void initialize_bitarray_lookups() {
+void initialize_bitarray_lookups() {
   if (!lookups_initialised) {
     allocateNrBlocksLookup(lookup_size);
     allocateQuotientLookup(lookup_size);
