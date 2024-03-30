@@ -48,7 +48,7 @@ extern size_t calculate_remainder(size_t N);
 extern Block calculate_mask(size_t N);
 
 extern void allocateNrBlocksLookup(uint16_t new_lookup_size);
-extern void allocateQuotientLookup(uint16_t new_lookup_size)
+extern void allocateQuotientLookup(uint16_t new_lookup_size);
 extern void allocateRemainderLookup(uint16_t new_lookup_size);
 extern void allocateMaskLookup(uint16_t new_lookup_size);
 extern void free_bitarray_lookups(void);
