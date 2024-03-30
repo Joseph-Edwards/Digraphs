@@ -58,34 +58,34 @@ static Block calculate_mask(size_t N) {
   return (Block) 1 << N;
 }
 
-static void allocateNrBlocksLookup(uint16_t lookup_size) {
-  nr_blocks_lookup = (size_t*) calloc(lookup_size, sizeof(size_t));
+static void allocateNrBlocksLookup(uint16_t new_lookup_size) {
+  nr_blocks_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
 
-  for (uint16_t i = 0; i < lookup_size; i++) {
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
     nr_blocks_lookup[i] = calculate_number_of_blocks(i);
   }
 }
 
-static void allocateQuotientLookup(uint16_t lookup_size) {
-  quotient_lookup = (size_t*) calloc(lookup_size, sizeof(size_t));
+static void allocateQuotientLookup(uint16_t new_lookup_size) {
+  quotient_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
 
-  for (uint16_t i = 0; i < lookup_size; i++) {
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
     quotient_lookup[i] = calculate_quotient(i);
   }
 }
 
-static void allocateRemainderLookup(uint16_t lookup_size) {
-  remainder_lookup = (size_t*) calloc(lookup_size, sizeof(size_t));
+static void allocateRemainderLookup(uint16_t new_lookup_size) {
+  remainder_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
 
-  for (uint16_t i = 0; i < lookup_size; i++) {
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
     remainder_lookup[i] = calculate_remainder(i);
   }
 }
 
-static void allocateMaskLookup(uint16_t lookup_size) {
-  mask_lookup = (Block*) calloc(lookup_size, sizeof(Block));
+static void allocateMaskLookup(uint16_t new_lookup_size) {
+  mask_lookup = (Block*) calloc(new_lookup_size, sizeof(Block));
 
-  for (uint16_t i = 0; i < lookup_size; i++) {
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
     mask_lookup[i] = calculate_mask(i);
   }
 }
