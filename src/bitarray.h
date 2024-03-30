@@ -26,7 +26,7 @@ typedef UInt Block;
 
 #define NUMBER_BITS_PER_BLOCK (sizeof(Block) * CHAR_BIT)
 
-static bool lookups_initialised = false;
+bool lookups_initialised = false;
 
 #if SYS_IS_64_BIT
 #define SYSTEM_BIT_COUNT 64
@@ -42,72 +42,10 @@ extern uint16_t lookup_size;
 
 #include <stdio.h>  // Include the standard I/O header for file operations
 
-static size_t calculate_quotient(size_t N) {
-  return (size_t) N / SYSTEM_BIT_COUNT;
-}
-
-static size_t calculate_number_of_blocks(size_t N) {
-  return (N + SYSTEM_BIT_COUNT - 1) / SYSTEM_BIT_COUNT;
-}
-
-static size_t calculate_remainder(size_t N) {
-  return (size_t) N % SYSTEM_BIT_COUNT;
-}
-
-static Block calculate_mask(size_t N) {
-  return (Block) 1 << N;
-}
-
-static void allocateNrBlocksLookup(uint16_t new_lookup_size) {
-  nr_blocks_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
-
-  for (uint16_t i = 0; i < new_lookup_size; i++) {
-    nr_blocks_lookup[i] = calculate_number_of_blocks(i);
-  }
-}
-
-static void allocateQuotientLookup(uint16_t new_lookup_size) {
-  quotient_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
-
-  for (uint16_t i = 0; i < new_lookup_size; i++) {
-    quotient_lookup[i] = calculate_quotient(i);
-  }
-}
-
-static void allocateRemainderLookup(uint16_t new_lookup_size) {
-  remainder_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
-
-  for (uint16_t i = 0; i < new_lookup_size; i++) {
-    remainder_lookup[i] = calculate_remainder(i);
-  }
-}
-
-static void allocateMaskLookup(uint16_t new_lookup_size) {
-  mask_lookup = (Block*) calloc(new_lookup_size, sizeof(Block));
-
-  for (uint16_t i = 0; i < new_lookup_size; i++) {
-    mask_lookup[i] = calculate_mask(i);
-  }
-}
-
-void free_bitarray_lookups() {
-  free(mask_lookup);
-  free(remainder_lookup);
-  free(quotient_lookup);
-
-  lookups_initialised = false;
-}
-
-void initialize_bitarray_lookups() {
-  if (!lookups_initialised) {
-    allocateNrBlocksLookup(lookup_size);
-    allocateQuotientLookup(lookup_size);
-    allocateRemainderLookup(lookup_size);
-    allocateMaskLookup(NUMBER_BITS_PER_BLOCK);
-
-    lookups_initialised = true;
-  }
-}
+size_t calculate_quotient(size_t N);
+size_t calculate_number_of_blocks(size_t N);
+size_t calculate_remainder(size_t N);
+Block calculate_mask(size_t N);
 
 // Allow users to set the bit array calculation lookup size
 Obj FuncSET_BITARRAY_LOOKUP_SIZE(Obj self, Obj args);
@@ -136,7 +74,7 @@ static size_t get_quotient(size_t number) {
   }
 }
 
-static const Block get_mask(size_t N) {
+static Block get_mask(size_t N) {
   DIGRAPHS_ASSERT(N < NUMBER_BITS_PER_BLOCK);
   return mask_lookup[N];
 }
@@ -163,7 +101,9 @@ static inline void init_bit_array(BitArray* const bit_array,
                                   uint16_t const  nr_bits) {
   DIGRAPHS_ASSERT(bit_array != NULL);
   DIGRAPHS_ASSERT(nr_bits <= bit_array->nr_bits);
+
   uint16_t const nr_blocks = get_number_of_blocks(nr_bits);
+
   if (val) {
     memset((void*) bit_array->blocks, ~0, (size_t) sizeof(Block) * nr_blocks);
   } else {

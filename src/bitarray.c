@@ -26,6 +26,73 @@ size_t*  remainder_lookup = NULL;
 Block*   mask_lookup      = NULL;
 uint16_t lookup_size      = 513;
 
+size_t calculate_quotient(size_t N) {
+  return (size_t) N / SYSTEM_BIT_COUNT;
+}
+
+size_t calculate_number_of_blocks(size_t N) {
+  return (N + SYSTEM_BIT_COUNT - 1) / SYSTEM_BIT_COUNT;
+}
+
+size_t calculate_remainder(size_t N) {
+  return (size_t) N % SYSTEM_BIT_COUNT;
+}
+
+Block calculate_mask(size_t N) {
+  return (Block) 1 << N;
+}
+
+void allocateNrBlocksLookup(uint16_t new_lookup_size) {
+  nr_blocks_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
+
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
+    nr_blocks_lookup[i] = calculate_number_of_blocks(i);
+  }
+}
+
+void allocateQuotientLookup(uint16_t new_lookup_size) {
+  quotient_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
+
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
+    quotient_lookup[i] = calculate_quotient(i);
+  }
+}
+
+void allocateRemainderLookup(uint16_t new_lookup_size) {
+  remainder_lookup = (size_t*) calloc(new_lookup_size, sizeof(size_t));
+
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
+    remainder_lookup[i] = calculate_remainder(i);
+  }
+}
+
+void allocateMaskLookup(uint16_t new_lookup_size) {
+  mask_lookup = (Block*) calloc(new_lookup_size, sizeof(Block));
+
+  for (uint16_t i = 0; i < new_lookup_size; i++) {
+    mask_lookup[i] = calculate_mask(i);
+  }
+}
+
+void free_bitarray_lookups() {
+  free(mask_lookup);
+  free(remainder_lookup);
+  free(quotient_lookup);
+
+  lookups_initialised = false;
+}
+
+void initialize_bitarray_lookups() {
+  if (!lookups_initialised) {
+    allocateNrBlocksLookup(lookup_size);
+    allocateQuotientLookup(lookup_size);
+    allocateRemainderLookup(lookup_size);
+    allocateMaskLookup(NUMBER_BITS_PER_BLOCK);
+
+    lookups_initialised = true;
+  }
+}
+
 // Allow users to specify bitarray lookup size
 Obj FuncSET_BITARRAY_LOOKUP_SIZE(Obj self, Obj lookup_size_obj) {
   if (!IS_INTOBJ(lookup_size_obj)) {

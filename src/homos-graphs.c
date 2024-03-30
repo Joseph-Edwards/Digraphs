@@ -53,7 +53,9 @@ Graph* new_graph(uint16_t const nr_verts) {
 
 void free_digraph(Digraph* const digraph) {
   DIGRAPHS_ASSERT(digraph != NULL);
+
   uint16_t const nr = digraph->nr_vertices;
+
   for (uint16_t i = 0; i < nr; i++) {
     free_bit_array(digraph->in_neighbours[i]);
     free_bit_array(digraph->out_neighbours[i]);
