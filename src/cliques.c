@@ -199,7 +199,7 @@ static void init_graph_from_digraph_obj(Graph* const graph, Obj digraph_obj) {
 
 static bool is_initialized = false;
 
-static bool free_cliques_data(CliqueData* data) {
+static void free_cliques_data(CliqueData* data) {
   if (is_initialized) {
     free_bit_array(data->clique);
     free_conditions(data->try_);
