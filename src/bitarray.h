@@ -26,7 +26,6 @@ typedef UInt Block;
 
 #define NUMBER_BITS_PER_BLOCK (sizeof(Block) * CHAR_BIT)
 
-bool lookups_initialised = false;
 
 #if SYS_IS_64_BIT
 #define SYSTEM_BIT_COUNT 64
@@ -34,6 +33,7 @@ bool lookups_initialised = false;
 #define SYSTEM_BIT_COUNT 32
 #endif
 
+extern bool lookups_initialised;
 extern size_t*  nr_blocks_lookup;
 extern size_t*  quotient_lookup;
 extern size_t*  remainder_lookup;
@@ -42,13 +42,19 @@ extern uint16_t lookup_size;
 
 #include <stdio.h>  // Include the standard I/O header for file operations
 
-size_t calculate_quotient(size_t N);
-size_t calculate_number_of_blocks(size_t N);
-size_t calculate_remainder(size_t N);
-Block calculate_mask(size_t N);
+extern size_t calculate_quotient(size_t N);
+extern size_t calculate_number_of_blocks(size_t N);
+extern size_t calculate_remainder(size_t N);
+extern Block calculate_mask(size_t N);
 
-// Allow users to set the bit array calculation lookup size
-Obj FuncSET_BITARRAY_LOOKUP_SIZE(Obj self, Obj args);
+extern void allocateNrBlocksLookup(uint16_t new_lookup_size);
+extern void allocateQuotientLookup(uint16_t new_lookup_size)
+extern void allocateRemainderLookup(uint16_t new_lookup_size);
+extern void allocateMaskLookup(uint16_t new_lookup_size);
+extern void free_bitarray_lookups(void);
+extern void initialize_bitarray_lookups(void);
+
+extern Obj FuncSET_BITARRAY_LOOKUP_SIZE(Obj self, Obj args);
 
 static size_t get_number_of_blocks(size_t N) {
   if (N < lookup_size) {

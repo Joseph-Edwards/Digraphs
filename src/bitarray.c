@@ -20,6 +20,7 @@
 // Digraphs headers
 #include "digraphs-debug.h"  // for DIGRAPHS_ASSERT
 
+bool lookups_initialised = false;
 size_t*  nr_blocks_lookup = NULL;
 size_t*  quotient_lookup  = NULL;
 size_t*  remainder_lookup = NULL;
@@ -74,7 +75,7 @@ void allocateMaskLookup(uint16_t new_lookup_size) {
   }
 }
 
-void free_bitarray_lookups() {
+void free_bitarray_lookups(void) {
   free(mask_lookup);
   free(remainder_lookup);
   free(quotient_lookup);
@@ -82,7 +83,7 @@ void free_bitarray_lookups() {
   lookups_initialised = false;
 }
 
-void initialize_bitarray_lookups() {
+void initialize_bitarray_lookups(void) {
   if (!lookups_initialised) {
     allocateNrBlocksLookup(lookup_size);
     allocateQuotientLookup(lookup_size);
