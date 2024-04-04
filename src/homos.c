@@ -293,6 +293,12 @@ static void free_homos_data(void) {
     free_graph(GRAPH2);
     free_bit_array(IMAGE_RESTRICT);
     free_bit_array(ORB_LOOKUP);
+    free(MAP);
+    free(COLORS2);
+    free(INVERSE_ORDER);
+    free(MAP_BUFFER);
+    free(ORB);
+    free(ORDER);
 
     for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE * 3; i++) {
       bliss_digraphs_release(BLISS_GRAPH[i]);
