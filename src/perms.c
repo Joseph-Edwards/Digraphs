@@ -73,7 +73,7 @@ PermColl* new_perm_coll(uint16_t const capacity, uint16_t const degree) {
 }
 
 void free_perm_coll(PermColl* coll) {
-  for (uint16_t i = 0; i < coll->size; i++) {
+  for (uint16_t i = 0; i < coll->capacity; i++) {
     free(coll->perms[i]);
   }
   free(coll->perms);
