@@ -296,7 +296,7 @@ static bool init_data_from_args(Obj         digraph_obj,
     for (Int i = 1; i <= LEN_LIST(gens); ++i) {
       Obj s = CALL_1ARGS(SmallestMovedPointPerm, ELM_LIST(gens, i));
       if (s != Infinity
-          && !get_bit_array(data->temp_bitarray, INT_INTOBJ(s) - 1)) {
+          && !get_bit_array(cliques_data->temp_bitarray, INT_INTOBJ(s) - 1)) {
         if (new_group == Fail) {
           new_group = CALL_1ARGS(Group, ELM_LIST(gens, i));
         } else {
@@ -706,7 +706,7 @@ Obj FuncDigraphsCliquesFinder(Obj self, Obj args) {
   }
   // The clique we are trying to extend is already big enough
   if (size != 0 && include_size == size) {
-    cliques_data.hook(cliques_data->user_param, cliques_data->clique, nr, cliques_data->gap_func);
+    cliques_data->hook(cliques_data->user_param, cliques_data->clique, nr, cliques_data->gap_func);
     return user_param_obj;
   }
 
