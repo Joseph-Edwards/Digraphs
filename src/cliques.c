@@ -399,7 +399,7 @@ static int BronKerbosch(uint16_t    depth,
                             nr_found,
                             max,
                             size,
-                            group,
+                            group
                           )) {
           return EXIT;
         }
@@ -415,7 +415,7 @@ static int BronKerbosch(uint16_t    depth,
                             nr_found,
                             max,
                             size,
-                            stabiliser,
+                            stabiliser
                           )) {
           return EXIT;
         }
