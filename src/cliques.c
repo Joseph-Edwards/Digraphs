@@ -145,7 +145,7 @@ static UInt clique_hook_gap(void*           user_param,
 // Update a BitArray to only include one vertex per orbit with respect to
 // the group <group>
 static void get_orbit_reps_bitarray(BitArray*   bit_array,
-                                    Obj const   group,
+                                    Obj const   group
                                   ) {
   if (group == Fail) {
     return;
@@ -196,6 +196,7 @@ static void init_graph_from_digraph_obj(Graph* const graph, Obj digraph_obj) {
   }
 }
 
+static CliqueData cliques_data;
 static bool cliques_initialized = false;
 
 void free_cliques_data() {
@@ -473,8 +474,6 @@ static int BronKerbosch(uint16_t    depth,
 //    cliques themselves.
 // 2. Only one isolated vertex will be returned even if aut_grp_obj does not
 //    act transitevely on all isolated vertices.
-
-static CliqueData cliques_data;
 
 Obj FuncDigraphsCliquesFinder(Obj self, Obj args) {
   if (LEN_PLIST(args) != 8 && LEN_PLIST(args) != 9) {
