@@ -196,7 +196,7 @@ static void init_graph_from_digraph_obj(Graph* const graph, Obj digraph_obj) {
   }
 }
 
-static CliqueData cliques_data;
+static CliqueData* cliques_data;
 static bool cliques_initialized = false;
 
 void free_cliques_data() {
