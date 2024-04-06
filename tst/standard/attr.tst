@@ -3041,6 +3041,9 @@ gap> Unbind(x);
 gap> Unbind(y);
 gap> Unbind(z);
 
+# Wipe internal structures for homos
+gap> DIGRAPHS_FREE_HOMOS_DATA();
+
 #
 gap> DIGRAPHS_StopTest();
 gap> STOP_TEST("Digraphs package: standard/attr.tst", 0);
