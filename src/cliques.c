@@ -217,7 +217,7 @@ static bool init_data_from_args(Obj         digraph_obj,
                                 Obj         include_obj,
                                 Obj         exclude_obj,
                                 Obj         max_obj,
-                                Obj*        group,
+                                Obj*        group
         ) {
   if (!cliques_initialized
       || DigraphNrVertices(digraph_obj) + 1 > CLIQUES_STRUCTURE_SIZE) {
@@ -327,7 +327,7 @@ static int BronKerbosch(uint16_t    depth,
                         uint64_t*   nr_found,
                         bool        max,
                         uint16_t    size,
-                        Obj         group,
+                        Obj         group
                       ) {
   uint16_t  nr   = cliques_data->graph->nr_vertices;
   BitArray* try_ = get_conditions(cliques_data->try_, 0);
@@ -700,13 +700,13 @@ Obj FuncDigraphsCliquesFinder(Obj self, Obj args) {
                            include_obj,
                            exclude_obj,
                            max_obj,
-                           &aut_grp_obj,
+                           &aut_grp_obj
                           )) {
     return user_param_obj;
   }
   // The clique we are trying to extend is already big enough
   if (size != 0 && include_size == size) {
-    data.hook(data.user_param, data.clique, nr, data.gap_func);
+    cliques_data.hook(data.user_param, data.clique, nr, data.gap_func);
     return user_param_obj;
   }
 
