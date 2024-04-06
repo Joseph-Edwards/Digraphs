@@ -95,6 +95,8 @@ void clear_digraph(Digraph* const digraph, uint16_t const nr_verts) {
 void clear_graph(Graph* const graph, uint16_t const nr_verts) {
   DIGRAPHS_ASSERT(graph != NULL);
   DIGRAPHS_ASSERT(nr_verts <= MACHINE_MAXVERTS);
+  DIGRAPHS_ASSERT(nr_verts <= graph->max_size);
+
   for (uint16_t i = 0; i < nr_verts; i++) {
     init_bit_array(graph->neighbours[i], false, nr_verts);
   }
