@@ -200,6 +200,7 @@ static bool cliques_initialized = false;
 
 void free_cliques_data(CliqueData* data) {
   if (cliques_initialized) {
+    free_graph(data->graph);
     free_bit_array(data->clique);
     free_conditions(data->try_);
     free_conditions(data->ban);
