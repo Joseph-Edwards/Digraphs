@@ -18,7 +18,7 @@
 // GAP headers
 #include "gap-includes.h"
 
-extern void free_homos_data(void);
+extern Obj free_homos_data(void);
 
 Obj FuncHomomorphismDigraphsFinder(Obj self, Obj args);
 

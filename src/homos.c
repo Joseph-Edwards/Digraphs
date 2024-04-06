@@ -26,6 +26,7 @@
 
 #include "homos.h"
 // C headers
+#include <stdbool.h>  // for true
 #include <limits.h>   // for CHAR_BIT
 #include <setjmp.h>   // for longjmp, setjmp, jmp_buf
 #include <stdbool.h>  // for true, false, bool
@@ -285,7 +286,7 @@ homo_hook_collect(void* user_param, uint16_t const nr, uint16_t const* map) {
 // }
 
 static bool is_initialized = false;  // did we call this method before?
-void free_homos_data(void) {
+Obj free_homos_data(void) {
   if (is_initialized) {
     free_digraph(DIGRAPH1);
     free_digraph(DIGRAPH2);
@@ -321,6 +322,8 @@ void free_homos_data(void) {
     free_schreier_sims(SCHREIER_SIMS);
     is_initialized = false;
   }
+
+  return True;
 }
 
 static void get_automorphism_group_from_gap(Obj digraph_obj, PermColl* out) {
