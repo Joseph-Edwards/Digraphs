@@ -285,7 +285,7 @@ homo_hook_collect(void* user_param, uint16_t const nr, uint16_t const* map) {
 //   printf(" }>");
 // }
 
-static bool homos_data_initialized = false;  // did we call this method before?
+bool homos_data_initialized = false;  // did we call this method before?
 Obj free_homos_data(void) {
   printf("Free function called");
   if (homos_data_initialized) {
