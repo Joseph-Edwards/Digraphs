@@ -27,10 +27,11 @@ Conditions* new_conditions(uint16_t const nr1, uint16_t const nr2) {
   conditions->changed   = malloc(nr1 * (nr1 + 1) * sizeof(uint16_t));
   conditions->height    = malloc(nr1 * sizeof(uint16_t));
   conditions->sizes     = malloc(nr1 * nr1 * sizeof(uint16_t));
+  conditions->size      = (uint64_t) nr1 * nr1;
   conditions->nr1       = nr1;
   conditions->nr2       = nr2;
 
-  for (uint64_t i = 0; i < ((uint64_t) nr1 * nr1); i++) {
+  for (uint64_t i = 0; i < conditions->size; i++) {
     conditions->bit_array[i] = new_bit_array(nr2);
   }
 
@@ -46,8 +47,7 @@ Conditions* new_conditions(uint16_t const nr1, uint16_t const nr2) {
 
 void free_conditions(Conditions* const conditions) {
   DIGRAPHS_ASSERT(conditions != NULL);
-  for (uint64_t i = 0; i < ((uint64_t) conditions->nr1 * conditions->nr1);
-       i++) {
+  for (uint64_t i = 0; i < conditions->size; i++) {
     free_bit_array(conditions->bit_array[i]);
   }
   free(conditions->bit_array);
