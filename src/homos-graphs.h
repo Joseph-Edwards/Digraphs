@@ -29,6 +29,7 @@ struct digraph_struct {
   BitArray** in_neighbours;
   BitArray** out_neighbours;
   uint16_t   nr_vertices;
+  uint16_t   max_size;
 };
 
 typedef struct digraph_struct Digraph;
@@ -66,6 +67,7 @@ void automorphisms_digraph(Digraph const* const,
 struct graph_struct {
   BitArray** neighbours;
   uint16_t   nr_vertices;
+  uint16_t   max_size;
 };
 
 typedef struct graph_struct Graph;

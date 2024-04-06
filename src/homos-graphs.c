@@ -34,6 +34,7 @@ Digraph* new_digraph(uint16_t const nr_verts) {
     digraph->out_neighbours[i] = new_bit_array(nr_verts);
   }
   digraph->nr_vertices = nr_verts;
+  digraph->max_size = nr_verts;
   return digraph;
 }
 
@@ -54,7 +55,7 @@ Graph* new_graph(uint16_t const nr_verts) {
 void free_digraph(Digraph* const digraph) {
   DIGRAPHS_ASSERT(digraph != NULL);
 
-  uint16_t const nr = digraph->nr_vertices;
+  uint16_t const nr = digraph->max_size;
 
   for (uint16_t i = 0; i < nr; i++) {
     free_bit_array(digraph->in_neighbours[i]);
@@ -70,7 +71,7 @@ void free_digraph(Digraph* const digraph) {
 
 void free_graph(Graph* const graph) {
   DIGRAPHS_ASSERT(graph != NULL);
-  uint16_t const nr = graph->nr_vertices;
+  uint16_t const nr = graph->max_size;
   for (uint16_t i = 0; i < nr; i++) {
     free_bit_array(graph->neighbours[i]);
   }
@@ -81,6 +82,7 @@ void free_graph(Graph* const graph) {
 void clear_digraph(Digraph* const digraph, uint16_t const nr_verts) {
   DIGRAPHS_ASSERT(digraph != NULL);
   DIGRAPHS_ASSERT(nr_verts <= MACHINE_MAXVERTS);
+  DIGRAPHS_ASSERT(nr_verts <= digraph->max_size);
   for (uint16_t i = 0; i < nr_verts; i++) {
     init_bit_array(digraph->in_neighbours[i], false, nr_verts);
     init_bit_array(digraph->out_neighbours[i], false, nr_verts);
