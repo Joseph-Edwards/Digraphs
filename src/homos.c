@@ -285,9 +285,9 @@ homo_hook_collect(void* user_param, uint16_t const nr, uint16_t const* map) {
 //   printf(" }>");
 // }
 
-static bool is_initialized = false;  // did we call this method before?
+static bool homos_data_initialized = false;  // did we call this method before?
 Obj free_homos_data(void) {
-  if (is_initialized) {
+  if (homos_data_initialized) {
     free_digraph(DIGRAPH1);
     free_digraph(DIGRAPH2);
     free_graph(GRAPH1);
@@ -320,7 +320,7 @@ Obj free_homos_data(void) {
     free_bit_array(VALS);
     free_conditions(CONDITIONS);
     free_schreier_sims(SCHREIER_SIMS);
-    is_initialized = false;
+    homos_data_initialized = false;
   }
 
   return True;
