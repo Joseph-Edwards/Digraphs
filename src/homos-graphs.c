@@ -46,6 +46,8 @@ Graph* new_graph(uint16_t const nr_verts) {
     graph->neighbours[i] = new_bit_array(nr_verts);
   }
   graph->nr_vertices = nr_verts;
+  graph->max_size = nr_verts;
+
   return graph;
 }
 
