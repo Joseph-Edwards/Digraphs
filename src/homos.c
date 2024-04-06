@@ -1642,9 +1642,9 @@ static bool init_data_from_args(Obj digraph1_obj,
                                 Obj aut_grp_obj) {
   uint16_t calculated_max_verts =
       MAX(DigraphNrVertices(digraph1_obj), DigraphNrVertices(digraph2_obj));
-  if (!is_initialized || (calculated_max_verts > HOMOS_STRUCTURE_SIZE)) {
+  if (!homos_data_initialized || (calculated_max_verts > HOMOS_STRUCTURE_SIZE)) {
     free_homos_data();
-    is_initialized = true;
+    homos_data_initialized = true;
 
     // Rather arbitrary, but we multiply by 1.2 to avoid
     // n = 1,2,3,4,5... causing constant reallocation
