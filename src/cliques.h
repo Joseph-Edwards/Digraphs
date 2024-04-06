@@ -14,6 +14,7 @@
 // GAP headers
 #include "gap-includes.h"
 
+extern typedef CliqueData;
 extern void free_cliques_data(CliqueData* data);
 
 Obj FuncDigraphsCliquesFinder(Obj self, Obj args);
