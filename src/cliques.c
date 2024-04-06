@@ -335,7 +335,7 @@ static int BronKerbosch(uint16_t    depth,
 
   if (depth > 0 && !max && (size == 0 || size == depth)) {
     // We are not looking for maximal cliques
-    *nr_found += data->hook(data->user_param, data->clique, nr, data->gap_func);
+    *nr_found += cliques_data->hook(data->user_param, data->clique, nr, data->gap_func);
     if (*nr_found >= limit) {
       return EXIT;
     }
@@ -717,8 +717,8 @@ Obj FuncDigraphsCliquesFinder(Obj self, Obj args) {
                &nr_found,
                max,
                (size == 0 ? size : size - include_size),
-               aut_grp_obj,
-               &data);
+               aut_grp_obj
+              );
 
   return user_param_obj;
 }
