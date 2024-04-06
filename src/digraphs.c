@@ -2310,6 +2310,11 @@ static StructGVarFunc GVarFuncs[] = {
      "lookup_size",
      FuncSET_BITARRAY_LOOKUP_SIZE,
      "src/bitarray.c:FuncSET_BITARRAY_LOOKUP_SIZE"},
+    {"DIGRAPHS_FREE_HOMOS_DATA",
+     1,
+     "",
+     free_homos_data,
+     "src/homos.c:free_homos_data"},
     {0, 0, 0, 0, 0} /* Finish with an empty entry */
 };
 

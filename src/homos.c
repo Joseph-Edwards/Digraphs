@@ -285,7 +285,7 @@ homo_hook_collect(void* user_param, uint16_t const nr, uint16_t const* map) {
 // }
 
 static bool is_initialized = false;  // did we call this method before?
-static void free_homos_data(void) {
+void free_homos_data(void) {
   if (is_initialized) {
     free_digraph(DIGRAPH1);
     free_digraph(DIGRAPH2);
