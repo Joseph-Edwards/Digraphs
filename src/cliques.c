@@ -706,7 +706,7 @@ Obj FuncDigraphsCliquesFinder(Obj self, Obj args) {
   }
   // The clique we are trying to extend is already big enough
   if (size != 0 && include_size == size) {
-    cliques_data.hook(cliques_data.user_param, cliques_data.clique, nr, cliques_data.gap_func);
+    cliques_data.hook(cliques_data->user_param, cliques_data->clique, nr, cliques_data->gap_func);
     return user_param_obj;
   }
 
