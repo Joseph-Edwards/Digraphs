@@ -88,7 +88,7 @@ struct clique_data {
 
 typedef struct clique_data CliqueData;
 
-static CliqueData* clique_data_pointer; // For freeing
+static CliqueData* clique_data_pointer;  // For freeing
 
 ////////////////////////////////////////////////////////////////////////////////
 // Hook functions
@@ -225,7 +225,7 @@ static bool init_data_from_args(Obj         digraph_obj,
   if (!cliques_initialized
       || DigraphNrVertices(digraph_obj) + 1 > CLIQUES_STRUCTURE_SIZE) {
     free_cliques_data();
-    cliques_initialized         = true;
+    cliques_initialized    = true;
     CLIQUES_STRUCTURE_SIZE = DigraphNrVertices(digraph_obj) + 1;
 
     data->graph = new_graph(CLIQUES_STRUCTURE_SIZE);

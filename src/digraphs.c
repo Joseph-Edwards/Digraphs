@@ -19,8 +19,8 @@
 #include <stdint.h>   // for uint64_t
 #include <stdlib.h>   // for NULL, free
 
-#include "bliss-includes.h"  // for bliss stuff
 #include "bitarray.h"
+#include "bliss-includes.h"  // for bliss stuff
 #include "cliques.h"
 #include "digraphs-debug.h"  // for DIGRAPHS_ASSERT
 #include "homos.h"           // for FuncHomomorphismDigraphsFinder
