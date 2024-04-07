@@ -200,7 +200,7 @@ static void init_graph_from_digraph_obj(Graph* const graph, Obj digraph_obj) {
 
 static bool cliques_initialized = false;
 
-void free_cliques_data() {
+Obj free_cliques_data(void) {
   if (cliques_initialized) {
     free_graph(clique_data_pointer->graph);
     free_bit_array(clique_data_pointer->clique);
@@ -210,6 +210,8 @@ void free_cliques_data() {
     free_bit_array(clique_data_pointer->temp_bitarray);
     cliques_initialized = false;
   }
+
+  return True;
 }
 
 // Initialise the global variables
