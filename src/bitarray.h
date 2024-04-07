@@ -31,9 +31,9 @@ typedef UInt Block;
 
 
 #if SYS_IS_64_BIT
-#define SYSTEM_BIT_COUNT 64
+#define NUM_BITS_IN_UINT16 64
 #else
-#define SYSTEM_BIT_COUNT 32
+#define NUM_BITS_IN_UINT16 32
 #endif
 
 extern bool lookups_initialised;

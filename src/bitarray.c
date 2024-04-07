@@ -29,15 +29,15 @@ Block*   mask_lookup         = NULL;
 uint16_t lookup_size         = 513;
 
 size_t calculate_quotient(size_t N) {
-  return (size_t) N / SYSTEM_BIT_COUNT;
+  return (size_t) N / NUM_BITS_IN_UINT16;
 }
 
 size_t calculate_number_of_blocks(size_t N) {
-  return (N + SYSTEM_BIT_COUNT - 1) / SYSTEM_BIT_COUNT;
+  return (N + NUM_BITS_IN_UINT16 - 1) / NUM_BITS_IN_UINT16;
 }
 
 size_t calculate_remainder(size_t N) {
-  return (size_t) N % SYSTEM_BIT_COUNT;
+  return (size_t) N % NUM_BITS_IN_UINT16;
 }
 
 Block calculate_mask(size_t N) {
