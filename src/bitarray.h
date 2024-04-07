@@ -24,6 +24,7 @@
 
 // Digraphs headers
 #include "digraphs-debug.h"  // for DIGRAPHS_ASSERT
+
 typedef UInt Block;
 
 #define NUMBER_BITS_PER_BLOCK (sizeof(Block) * CHAR_BIT)
@@ -41,8 +42,6 @@ extern size_t*  quotient_lookup;
 extern size_t*  remainder_lookup;
 extern Block*   mask_lookup;
 extern uint16_t lookup_size;
-
-#include <stdio.h>  // Include the standard I/O header for file operations
 
 extern size_t calculate_quotient(size_t N);
 extern size_t calculate_number_of_blocks(size_t N);
