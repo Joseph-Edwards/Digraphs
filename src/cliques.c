@@ -21,6 +21,7 @@
 #include "digraphs-debug.h"  // for DIGRAPHS_ASSERT
 #include "homos-graphs.h"    // for Digraph, Graph, . . .
 #include "perms.h"           // for UNDEFINED, PermColl, Perm
+#include "safemalloc.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macros
