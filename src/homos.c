@@ -290,7 +290,7 @@ homo_hook_collect(void* user_param, uint16_t const nr, uint16_t const* map) {
 
 bool homos_data_initialized = false;  // did we call this method before?
 Obj free_homos_data(void) {
-   if (homos_data_initialized) {
+  if (homos_data_initialized) {
     free_digraph(DIGRAPH1);
     free_digraph(DIGRAPH2);
     free_graph(GRAPH1);
@@ -304,15 +304,15 @@ Obj free_homos_data(void) {
     free(ORB);
     free(ORDER);
 
-     for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE * 3; i++) {
-       bliss_digraphs_release(BLISS_GRAPH[i]);
+    for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE * 3; i++) {
+      bliss_digraphs_release(BLISS_GRAPH[i]);
     }
 
-     for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE; i++) {
-       free_bit_array(REPS[i]);
-       free_bit_array(BIT_ARRAY_BUFFER[i]);
-       free_bit_array(MAP_UNDEFINED[i]);
-       free_perm_coll(STAB_GENS[i]);
+    for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE; i++) {
+      free_bit_array(REPS[i]);
+      free_bit_array(BIT_ARRAY_BUFFER[i]);
+      free_bit_array(MAP_UNDEFINED[i]);
+      free_perm_coll(STAB_GENS[i]);
     }
 
     free(BLISS_GRAPH);
