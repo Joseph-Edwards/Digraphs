@@ -2381,3 +2381,27 @@ false
   </Description>
 </ManSection>
 <#/GAPDoc>
+<#GAPDoc Label="DIGRAPHS_FREE_HOMOS_DATA">
+  <Oper Name="DIGRAPHS_FREE_HOMOS_DATA"/>
+  <Description>
+  Frees the internal structures used for homomorphism finding. This does 
+  not affect any of your gap variables, but will reduce memory usage of 
+  the digraphs c code. Note that this will slow down the calculations next time 
+  a homomorphism is found.
+  </Description>
+  <Example><![CDATA[
+  gap>DIGRAPHS_FREE_HOMOS_DATA();;
+  ]]></Example>
+<#/GAPDoc>
+<#GAPDoc Label="DIGRAPHS_FREE_CLIQUES_DATA">
+  <Oper Name="DIGRAPHS_FREE_CLIQUES_DATA"/>
+  <Description>
+  Frees the internal structures used for clique finding. This does 
+  not affect any of your gap variables, but will reduce memory usage of 
+  the digraphs c code. Note that this will slow down the calculations next time 
+  the cliques functions are called.
+  </Description>
+  <Example><![CDATA[
+  gap>DIGRAPHS_FREE_CLIQUES_DATA();;
+  ]]></Example>
+<#/GAPDoc>
