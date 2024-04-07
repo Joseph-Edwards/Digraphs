@@ -2070,6 +2070,7 @@ gap> D := Digraph([[2, 3], [1, 3], [1, 2, 4], [1]]);
 <immutable digraph with 4 vertices, 8 edges>
 gap> DigraphCore(D);
 [ 1, 2, 3 ]
+gap> DIGRAPHS_FREE_HOMOS_DATA();;
 gap> DigraphHomomorphism(D, InducedSubdigraph(D, DigraphCore(D)));
 Transformation( [ 1, 3, 2, 3 ] )
 gap> D := CompleteDigraph(10);
