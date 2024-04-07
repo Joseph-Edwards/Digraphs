@@ -3043,8 +3043,8 @@ gap> Unbind(y);
 gap> Unbind(z);
 
 # Wipe internal structures for homos
-gap> DIGRAPHS_FREE_HOMOS_DATA();
-gap> DIGRAPHS_FREE_CLIQUES_DATA();
+gap> DIGRAPHS_FREE_HOMOS_DATA();;
+gap> DIGRAPHS_FREE_CLIQUES_DATA();;
 
 #
 gap> DIGRAPHS_StopTest();

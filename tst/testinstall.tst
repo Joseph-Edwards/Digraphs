@@ -446,8 +446,8 @@ gap> Unbind(str);
 gap> Unbind(topo);
 
 # Wipe internal structures for homos and cliques
-gap> DIGRAPHS_FREE_HOMOS_DATA();
-gap> DIGRAPHS_FREE_CLIQUES_DATA();
+gap> DIGRAPHS_FREE_HOMOS_DATA();;
+gap> DIGRAPHS_FREE_CLIQUES_DATA();;
 
 #E#
 gap> DIGRAPHS_StopTest();

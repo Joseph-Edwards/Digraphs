@@ -634,8 +634,8 @@ gap> Unbind(lim);
 gap> Unbind(out);
 
 # Wipe internal structures for homos and cliques
-gap> DIGRAPHS_FREE_HOMOS_DATA();
-gap> DIGRAPHS_FREE_CLIQUES_DATA();
+gap> DIGRAPHS_FREE_HOMOS_DATA();;
+gap> DIGRAPHS_FREE_CLIQUES_DATA();;
 
 #
 gap> DIGRAPHS_StopTest();
