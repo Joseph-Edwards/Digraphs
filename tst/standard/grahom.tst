@@ -2777,6 +2777,10 @@ gap> Unbind(t);
 gap> Unbind(tt);
 gap> Unbind(x);
 
+# Wipe internal structures for homos and cliques
+gap> DIGRAPHS_FREE_HOMOS_DATA();
+gap> DIGRAPHS_FREE_CLIQUES_DATA();
+
 #
 gap> DIGRAPHS_StopTest();
 gap> STOP_TEST("Digraphs package: standard/grahom.tst", 0);
