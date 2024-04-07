@@ -110,13 +110,13 @@ Obj FuncSET_BITARRAY_LOOKUP_SIZE(Obj self, Obj lookup_size_obj) {
 
 BitArray* new_bit_array(uint16_t const nr_bits) {
   initialize_bitarray_lookups();
-  BitArray* bit_array  = safe_malloc(sizeof(BitArray));
+  BitArray* bit_array = safe_malloc(sizeof(BitArray));
 
   bit_array->nr_bits   = nr_bits;
   bit_array->nr_blocks = ((nr_bits % NUMBER_BITS_PER_BLOCK) == 0
                               ? nr_bits / NUMBER_BITS_PER_BLOCK
                               : nr_bits / NUMBER_BITS_PER_BLOCK + 1);
-  bit_array->blocks    = safe_calloc(bit_array->nr_blocks, NUMBER_BITS_PER_BLOCK);
+  bit_array->blocks = safe_calloc(bit_array->nr_blocks, NUMBER_BITS_PER_BLOCK);
 
   return bit_array;
 }

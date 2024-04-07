@@ -16,8 +16,8 @@
 
 // C headers
 #include "globals.h"
-#include "stdlib.h"  // for NULL
 #include "stddef.h"  // for size_t
+#include "stdlib.h"  // for NULL
 #include "string.h"  // for memset
 
 // Digraphs package headers
@@ -36,12 +36,11 @@ SchreierSims* new_schreier_sims(void) {
   for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE; ++i) {
     ss->strong_gens[i] =
         new_perm_coll(HOMOS_STRUCTURE_SIZE, HOMOS_STRUCTURE_SIZE);
-
   }
-  ss->transversal =
-      (Perm*) safe_calloc(HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(Perm));
-  ss->inversal =
-      (Perm*) safe_calloc(HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(Perm));
+  ss->transversal = (Perm*) safe_calloc(
+      HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(Perm));
+  ss->inversal = (Perm*) safe_calloc(
+      HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(Perm));
 
   for (size_t i = 0; i < HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE; ++i) {
     ss->transversal[i] = new_perm(HOMOS_STRUCTURE_SIZE);
@@ -49,9 +48,10 @@ SchreierSims* new_schreier_sims(void) {
   }
 
   ss->base   = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-  ss->orbits = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE,
-                                  sizeof(uint16_t));
-  ss->size_orbits = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+  ss->orbits = (uint16_t*) safe_calloc(
+      HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+  ss->size_orbits =
+      (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
   ss->orb_lookup =
       (bool*) calloc(HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(bool));
 

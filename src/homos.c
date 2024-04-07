@@ -47,8 +47,8 @@
 #include "digraphs-config.h"  // for DIGRAPHS_HAVE___BUILTIN_CTZLL
 #include "digraphs-debug.h"   // for DIGRAPHS_ASSERT
 #include "globals.h"
-#include "homos-graphs.h"   // for Digraph, Graph, . . .
-#include "perms.h"          // for UNDEFINED, PermColl, Perm
+#include "homos-graphs.h"  // for Digraph, Graph, . . .
+#include "perms.h"         // for UNDEFINED, PermColl, Perm
 #include "safemalloc.h"
 
 #include "schreier-sims.h"  // for PermColl, . . .
@@ -1671,15 +1671,18 @@ static bool init_data_from_args(Obj digraph1_obj,
         (BitArray**) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(BitArray*));
     MAP_UNDEFINED =
         (BitArray**) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(BitArray*));
-    BLISS_GRAPH =
-        (BlissGraph**) safe_calloc(3 * HOMOS_STRUCTURE_SIZE, sizeof(BlissGraph*));
-    MAP           = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-    COLORS2       = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-    INVERSE_ORDER = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-    MAP_BUFFER    = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-    ORB           = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-    ORDER         = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-    STAB_GENS = (PermColl**) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(PermColl*));
+    BLISS_GRAPH = (BlissGraph**) safe_calloc(3 * HOMOS_STRUCTURE_SIZE,
+                                             sizeof(BlissGraph*));
+    MAP     = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+    COLORS2 = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+    INVERSE_ORDER =
+        (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+    MAP_BUFFER =
+        (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+    ORB   = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+    ORDER = (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
+    STAB_GENS =
+        (PermColl**) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(PermColl*));
 
     for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE * 3; i++) {
       BLISS_GRAPH[i] = bliss_digraphs_new(i);
@@ -1691,8 +1694,8 @@ static bool init_data_from_args(Obj digraph1_obj,
       MAP_UNDEFINED[i]    = new_bit_array(HOMOS_STRUCTURE_SIZE);
       STAB_GENS[i] = new_perm_coll(HOMOS_STRUCTURE_SIZE, HOMOS_STRUCTURE_SIZE);
     }
-    VALS          = new_bit_array(HOMOS_STRUCTURE_SIZE);
-    CONDITIONS    = new_conditions(HOMOS_STRUCTURE_SIZE, HOMOS_STRUCTURE_SIZE);
+    VALS       = new_bit_array(HOMOS_STRUCTURE_SIZE);
+    CONDITIONS = new_conditions(HOMOS_STRUCTURE_SIZE, HOMOS_STRUCTURE_SIZE);
 
     SCHREIER_SIMS = new_schreier_sims();
   }
