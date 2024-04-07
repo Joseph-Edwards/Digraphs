@@ -88,6 +88,8 @@ struct clique_data {
 
 typedef struct clique_data CliqueData;
 
+static CliqueData* clique_data_pointer; // For freeing
+
 ////////////////////////////////////////////////////////////////////////////////
 // Hook functions
 ////////////////////////////////////////////////////////////////////////////////
@@ -198,14 +200,14 @@ static void init_graph_from_digraph_obj(Graph* const graph, Obj digraph_obj) {
 
 static bool cliques_initialized = false;
 
-void free_cliques_data(CliqueData* data) {
+void free_cliques_data() {
   if (cliques_initialized) {
-    free_graph(data->graph);
-    free_bit_array(data->clique);
-    free_conditions(data->try_);
-    free_conditions(data->ban);
-    free_conditions(data->to_try);
-    free_bit_array(data->temp_bitarray);
+    free_graph(clique_data_pointer->graph);
+    free_bit_array(clique_data_pointer->clique);
+    free_conditions(clique_data_pointer->try_);
+    free_conditions(clique_data_pointer->ban);
+    free_conditions(clique_data_pointer->to_try);
+    free_bit_array(clique_data_pointer->temp_bitarray);
     cliques_initialized = false;
   }
 }
@@ -219,9 +221,10 @@ static bool init_data_from_args(Obj         digraph_obj,
                                 Obj         max_obj,
                                 Obj*        group,
                                 CliqueData* data) {
+  clique_data_pointer = data;
   if (!cliques_initialized
       || DigraphNrVertices(digraph_obj) + 1 > CLIQUES_STRUCTURE_SIZE) {
-    free_cliques_data(data);
+    free_cliques_data();
     cliques_initialized         = true;
     CLIQUES_STRUCTURE_SIZE = DigraphNrVertices(digraph_obj) + 1;
 
