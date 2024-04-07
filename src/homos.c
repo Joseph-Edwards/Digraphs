@@ -28,7 +28,6 @@
 // C headers
 #include <limits.h>   // for CHAR_BIT
 #include <setjmp.h>   // for longjmp, setjmp, jmp_buf
-#include <stdbool.h>  // for true
 #include <stdbool.h>  // for true, false, bool
 #include <stddef.h>   // for NULL
 #include <stdint.h>   // for uint16_t, uint64_t
@@ -290,20 +289,20 @@ homo_hook_collect(void* user_param, uint16_t const nr, uint16_t const* map) {
 // }
 
 bool homos_data_initialized = false;  // did we call this method before?
-Obj  free_homos_data(void) {
+Obj free_homos_data(void) {
    if (homos_data_initialized) {
-     free_digraph(DIGRAPH1);
-     free_digraph(DIGRAPH2);
-     free_graph(GRAPH1);
-     free_graph(GRAPH2);
-     free_bit_array(IMAGE_RESTRICT);
-     free_bit_array(ORB_LOOKUP);
-     free(MAP);
-     free(COLORS2);
-     free(INVERSE_ORDER);
-     free(MAP_BUFFER);
-     free(ORB);
-     free(ORDER);
+    free_digraph(DIGRAPH1);
+    free_digraph(DIGRAPH2);
+    free_graph(GRAPH1);
+    free_graph(GRAPH2);
+    free_bit_array(IMAGE_RESTRICT);
+    free_bit_array(ORB_LOOKUP);
+    free(MAP);
+    free(COLORS2);
+    free(INVERSE_ORDER);
+    free(MAP_BUFFER);
+    free(ORB);
+    free(ORDER);
 
      for (uint16_t i = 0; i < HOMOS_STRUCTURE_SIZE * 3; i++) {
        bliss_digraphs_release(BLISS_GRAPH[i]);
@@ -316,18 +315,18 @@ Obj  free_homos_data(void) {
        free_perm_coll(STAB_GENS[i]);
     }
 
-     free(BLISS_GRAPH);
-     free(REPS);
-     free(BIT_ARRAY_BUFFER);
-     free(MAP_UNDEFINED);
-     free(STAB_GENS);
-     free_bit_array(VALS);
-     free_conditions(CONDITIONS);
-     free_schreier_sims(SCHREIER_SIMS);
-     homos_data_initialized = false;
+    free(BLISS_GRAPH);
+    free(REPS);
+    free(BIT_ARRAY_BUFFER);
+    free(MAP_UNDEFINED);
+    free(STAB_GENS);
+    free_bit_array(VALS);
+    free_conditions(CONDITIONS);
+    free_schreier_sims(SCHREIER_SIMS);
+    homos_data_initialized = false;
   }
 
-   return True;
+  return True;
 }
 
 static void get_automorphism_group_from_gap(Obj digraph_obj, PermColl* out) {
