@@ -17,6 +17,8 @@
 #include <stddef.h>   // for size_t
 #include <stdint.h>   // for uint16_t
 #include <stdlib.h>   // for calloc
+#include <string.h>   // for memset
+
 // GAP headers
 #include "gap-includes.h"  // for COUNT_TRUES_BLOCKS, Obj, . . .
 
