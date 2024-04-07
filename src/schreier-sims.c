@@ -52,8 +52,8 @@ SchreierSims* new_schreier_sims(void) {
       HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
   ss->size_orbits =
       (uint16_t*) safe_calloc(HOMOS_STRUCTURE_SIZE, sizeof(uint16_t));
-  ss->orb_lookup =
-      (bool*) safe_calloc(HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(bool));
+  ss->orb_lookup = (bool*) safe_calloc(
+      HOMOS_STRUCTURE_SIZE * HOMOS_STRUCTURE_SIZE, sizeof(bool));
 
   return ss;
 }
