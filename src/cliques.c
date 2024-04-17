@@ -684,6 +684,7 @@ Obj FuncDigraphsCliquesFinder(Obj self, Obj args) {
         return user_param_obj;
       }
     }
+    free(lookup);
   }
   // Check if the set we are trying to extend is a clique
   if (include_obj != Fail
