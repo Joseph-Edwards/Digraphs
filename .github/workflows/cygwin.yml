@@ -10,8 +10,7 @@ env:
   DIGRAPHS_LIB: digraphs-lib-0.6
 
 jobs:
-  test-cygwin:
-    name: "cygwin / GAP master"
+  tests:
     runs-on: windows-2019
     env:
       CHERE_INVOKING: 1

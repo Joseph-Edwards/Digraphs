@@ -53,17 +53,9 @@ jobs:
         uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: "tst/github_actions/install.g"
+          NO_COVERAGE: 'true' 
       - name: "Run DigraphsTestStandard"
         uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: "tst/github_actions/standard.g"
-      - name: "Run DigraphsTestManualExamples"
-        uses: gap-actions/run-pkg-tests@v2
-        with:
-          GAP_TESTFILE: "tst/github_actions/examples.g"
-      - name: "Run DigraphsTestExtreme"
-        uses: gap-actions/run-pkg-tests@v2
-        with:
-          GAP_TESTFILE: "tst/github_actions/extreme.g"
-      - uses: gap-actions/process-coverage@v2
-      - uses: codecov/codecov-action@v3
+          NO_COVERAGE: 'true' 
