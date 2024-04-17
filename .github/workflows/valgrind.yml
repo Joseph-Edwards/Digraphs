@@ -1,0 +1,78 @@
+name: "Valgrind"
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [GAP]
+    types: [completed]
+
+env:
+  DIGRAPHS_LIB: digraphs-lib-0.6
+
+jobs:
+  test-valgrind:
+    name: "${{ matrix.ABI }} / GAP ${{ matrix.gap-branch }}"
+    runs-on: "ubuntu-latest"
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        gap-branch:
+          - master
+          - stable-4.11
+          - stable-4.12
+          - stable-4.13
+        pkgs-to-clone:
+          - NautyTracesInterface
+        ABI: ['']
+
+        include:
+          - gap-branch: stable-4.10
+          - gap-branch: master
+            ABI: 32
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Install GAP and clone/compile necessary packages"
+        uses: gap-actions/setup-gap@v2
+        with:
+          GAP_PKGS_TO_CLONE: "${{ matrix.pkgs-to-clone }}"
+          GAP_PKGS_TO_BUILD: "io orb profiling grape NautyTracesInterface datastructures"
+          GAPBRANCH: ${{ matrix.gap-branch }}
+          ABI: ${{ matrix.ABI }}
+          CONFIGFLAGS: "--enable-valgrind"
+      - name: "Build Digraphs"
+        uses: gap-actions/build-pkg@v1
+        with:
+          ABI: ${{ matrix.ABI }}
+      - name: "Install digraphs-lib"
+        run: |
+          curl --retry 5 -L -O "https://digraphs.github.io/Digraphs/${{ env.DIGRAPHS_LIB }}.tar.gz"
+          tar xf "${{ env.DIGRAPHS_LIB }}.tar.gz"
+      - name: "Clone datastructures v0.3.0"
+        run: |
+          if [ ! -d $HOME/gap/pkg/datastructures ]; then
+            cd $HOME/gap/pkg/
+            git clone https://github.com/gap-packages/datastructures.git datastructures
+            cd datastructures
+            git checkout v0.3.0
+            ./configure
+            make
+          fi
+      - name: "Run DigraphsTestInstall"
+        uses: gap-actions/run-pkg-tests@v2
+        with:
+          GAP_TESTFILE: "tst/github_actions/install.g"
+      - name: "Run DigraphsTestStandard"
+        uses: gap-actions/run-pkg-tests@v2
+        with:
+          GAP_TESTFILE: "tst/github_actions/standard.g"
+      - name: "Run DigraphsTestManualExamples"
+        uses: gap-actions/run-pkg-tests@v2
+        with:
+          GAP_TESTFILE: "tst/github_actions/examples.g"
+      - name: "Run DigraphsTestExtreme"
+        uses: gap-actions/run-pkg-tests@v2
+        with:
+          GAP_TESTFILE: "tst/github_actions/extreme.g"
+      - uses: gap-actions/process-coverage@v2
+      - uses: codecov/codecov-action@v3
