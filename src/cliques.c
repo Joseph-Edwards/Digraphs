@@ -681,6 +681,7 @@ Obj FuncDigraphsCliquesFinder(Obj self, Obj args) {
     }
     for (UInt i = 1; i <= exclude_size; ++i) {
       if (lookup[INT_INTOBJ(ELM_LIST(exclude_obj, i)) - 1]) {
+        free(lookup);
         return user_param_obj;
       }
     }
