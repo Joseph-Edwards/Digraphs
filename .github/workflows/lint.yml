@@ -1,31 +1,26 @@
 name: "Lint"
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: [codespell]
-    types: [completed]
+  workflow_call:
+    inputs:
+      linter:
+        required: true
+        type: string
   schedule:
     # Every day at 3:30 AM UTC
     - cron: '30 3 * * *'
 
 jobs:
   lint:
-    name: "${{ matrix.linter }}"
+    name: "${{ inputs.linter }}"
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        linter:
-          - gaplint
-          - cpplint
     steps:
     - name: "Check out the repository"
       uses: actions/checkout@v4
     - name: "Set up Python"
       uses: actions/setup-python@v5
-    - name: "Install ${{ matrix.linter }} with pip"
-      run: pip install ${{ matrix.linter }}
-    - name: "Run ${{ matrix.linter }} on the Digraphs package"
-      run: bash etc/${{ matrix.linter }}.sh
+    - name: "Install ${{ inputs.linter }} with pip"
+      run: pip install ${{ inputs.linter }}
+    - name: "Run ${{ inputs.linter }} on the Digraphs package"
+      run: bash etc/${{ inputs.linter }}.sh
 

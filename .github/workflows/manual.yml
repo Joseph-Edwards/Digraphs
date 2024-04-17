@@ -1,9 +1,7 @@
 name: "Manual"
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: [codespell]
-    types: [completed]
+  workflow_call:
   schedule:
     # Every day at 3:20 AM UTC
     - cron: '20 3 * * *'
@@ -12,7 +10,6 @@ jobs:
   manual:
     name: "compile and upload manual"
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
       - name: "Install TeX Live"

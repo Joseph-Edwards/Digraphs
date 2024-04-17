@@ -1,35 +1,24 @@
 name: "Valgrind"
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: [GAP]
-    types: [completed]
+  workflow_call:
+    inputs:
+      gap-branch:
+        required: true
+        type: string
+      pkgs-to-clone:
+        required: true
+        type: string
+      ABI:
+        required: true
+        type: string
 
 env:
   DIGRAPHS_LIB: digraphs-lib-0.6
 
 jobs:
   test-valgrind:
-    name: "${{ matrix.ABI }} / GAP ${{ matrix.gap-branch }}"
     runs-on: "ubuntu-latest"
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        gap-branch:
-          - master
-          - stable-4.11
-          - stable-4.12
-          - stable-4.13
-        pkgs-to-clone:
-          - NautyTracesInterface
-        ABI: ['']
-
-        include:
-          - gap-branch: stable-4.10
-          - gap-branch: master
-            ABI: 32
-
     steps:
       - uses: actions/checkout@v4
       - name: "Install dependencies"
@@ -37,15 +26,15 @@ jobs:
       - name: "Install GAP and clone/compile necessary packages"
         uses: gap-actions/setup-gap@v2
         with:
-          GAP_PKGS_TO_CLONE: "${{ matrix.pkgs-to-clone }}"
+          GAP_PKGS_TO_CLONE: "${{ inputs.pkgs-to-clone }}"
           GAP_PKGS_TO_BUILD: "io orb profiling grape NautyTracesInterface datastructures"
-          GAPBRANCH: ${{ matrix.gap-branch }}
-          ABI: ${{ matrix.ABI }}
+          GAPBRANCH: ${{ inputs.gap-branch }}
+          ABI: ${{ inputs.ABI }}
           CONFIGFLAGS: "--enable-valgrind"
       - name: "Build Digraphs"
         uses: gap-actions/build-pkg@v1
         with:
-          ABI: ${{ matrix.ABI }}
+          ABI: ${{ inputs.ABI }}
       - name: "Install digraphs-lib"
         run: |
           curl --retry 5 -L -O "https://digraphs.github.io/Digraphs/${{ env.DIGRAPHS_LIB }}.tar.gz"

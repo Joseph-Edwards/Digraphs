@@ -1,0 +1,31 @@
+name: "Cygwin"
+on:
+  workflow_dispatch:
+  workflow_call:
+  schedule:
+    # Every day at 3:30 AM UTC
+    - cron: '30 3 * * *'
+
+env:
+  DIGRAPHS_LIB: digraphs-lib-0.6
+
+jobs:
+  test-cygwin:
+    name: "cygwin / GAP master"
+    runs-on: windows-2019
+    env:
+      CHERE_INVOKING: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gap-actions/setup-cygwin@v1
+      - uses: gap-actions/setup-gap@cygwin-v2
+        with:
+          GAP_PKGS_TO_BUILD: "io orb profiling grape datastructures"
+      - uses: gap-actions/build-pkg@cygwin-v1
+      - name: "Install digraphs-lib"
+        run: |
+          curl --retry 5 -L -O "https://digraphs.github.io/Digraphs/${{ env.DIGRAPHS_LIB }}.tar.gz"
+          tar xf "${{ env.DIGRAPHS_LIB }}.tar.gz"
+      - uses: gap-actions/run-pkg-tests@cygwin-v2
+      - uses: gap-actions/process-coverage@cygwin-v2
+      - uses: codecov/codecov-action@v3
