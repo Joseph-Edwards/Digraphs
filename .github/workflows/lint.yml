@@ -12,15 +12,19 @@ on:
 
 jobs:
   lint:
-    name: "${{ inputs.linter }}"
+    name: "${{ github.event_name == 'workflow_call' && inputs.linter || 'gaplint' }}"
     runs-on: ubuntu-latest
     steps:
     - name: "Check out the repository"
       uses: actions/checkout@v4
     - name: "Set up Python"
       uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: "Install dependencies with pip"
+      run: pip install setuptools
     - name: "Install ${{ inputs.linter }} with pip"
-      run: pip install ${{ inputs.linter }}
+      run: pip install ${{ github.event_name == 'workflow_call' && inputs.linter || 'gaplint' }}
     - name: "Run ${{ inputs.linter }} on the Digraphs package"
-      run: bash etc/${{ inputs.linter }}.sh
+      run: bash etc/${{ github.event_name == 'workflow_call' && inputs.linter || 'gaplint' }}.sh
 
