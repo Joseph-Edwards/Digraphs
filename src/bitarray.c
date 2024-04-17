@@ -80,6 +80,7 @@ void free_bitarray_lookups(void) {
   free(mask_lookup);
   free(remainder_lookup);
   free(quotient_lookup);
+  free(nr_blocks_lookup);
 
   lookups_initialised = false;
 }
