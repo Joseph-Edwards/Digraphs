@@ -87,6 +87,10 @@ jobs:
           - gap-branch: master
             ABI: 32
     uses: Joseph-Edwards/Digraphs/.github/workflows/valgrind.yml@ci
+    with:
+      gap-branch: ${{ matrix.gap-branch }}
+      pkgs-to-clone: ${{ matrix.pkgs-to-clone }}
+      ABI: ${{ matrix.ABI }}
 
 
   
