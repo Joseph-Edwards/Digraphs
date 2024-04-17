@@ -1,11 +1,9 @@
 name: "GAP"
 on:
   workflow_dispatch:
-  pull_request:
-  push:
-    branches:
-      - main
-      - stable-*.*
+  workflow_run:
+    workflows: [lint]
+    types: [completed]
   schedule:
     # Every day at 3:30 AM UTC
     - cron: '30 3 * * *'
@@ -17,6 +15,7 @@ jobs:
   test-unix:
     name: "${{ matrix.os }}${{ matrix.ABI }} / GAP ${{ matrix.gap-branch }}"
     runs-on: "${{ matrix.os }}-latest"
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     strategy:
       fail-fast: false
       matrix:
@@ -93,6 +92,7 @@ jobs:
   test-cygwin:
     name: "cygwin / GAP master"
     runs-on: windows-2019
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     env:
       CHERE_INVOKING: 1
     steps:
@@ -112,6 +112,7 @@ jobs:
 
   with-external-planarity-bliss:
     runs-on: "ubuntu-latest"
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     env:
       GAPBRANCH: "stable-4.12"
       ABI: 64
