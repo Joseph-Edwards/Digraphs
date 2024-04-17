@@ -60,7 +60,7 @@ jobs:
       ABI: ${{ matrix.ABI }}
 
   cygwin:
-    name: cygwin: GAP master
+    name: "cygwin: GAP master"
     needs: lint
     uses: Joseph-Edwards/Digraphs/.github/workflows/cygwin.yml@ci
 
