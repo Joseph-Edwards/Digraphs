@@ -19,6 +19,8 @@ jobs:
       uses: actions/checkout@v4
     - name: "Set up Python"
       uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
     - name: "Install ${{ inputs.linter }} with pip"
       run: pip install ${{ inputs.linter }}
     - name: "Run ${{ inputs.linter }} on the Digraphs package"
