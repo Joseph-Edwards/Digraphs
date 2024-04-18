@@ -1,0 +1,58 @@
+name: "Valgrind"
+on:
+  workflow_dispatch:
+
+jobs:
+  test-valgrind:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Install valgrind"
+        run: sudo apt-get install valgrind
+      - name: "Install GAP and clone/compile necessary packages"
+        run: |
+          echo "Installing dependencies"
+          packages=(
+            libgmp-dev
+            libreadline-dev
+            zlib1g-dev
+           )
+          sudo apt-get install "${packages[@]}"
+
+          git clone --depth=2 -b master https://github.com/gap-system/gap.git $HOME/gap
+
+          cd $HOME/gap
+
+          # build GAP in a subdirectory
+          ./autogen.sh
+          ./configure --enable-valgrind
+          make -j4 V=1
+
+          # make it available
+          ln -s $HOME/gap/gap /usr/local/bin/gap
+
+          WGET="wget -N --no-check-certificate --tries=5 --waitretry=5 --retry-connrefused"
+          make bootstrap-pkg-full DOWNLOAD="$WGET"
+
+          cd $HOME/gap/pkg
+          git clone https://github.com/gap-packages/NautyTracesInterface
+
+
+          BuildPackagesOptions="--strict"
+          shopt -s nocaseglob
+          cd $HOME/gap/pkg
+          for pkg in io orb profiling grape NautyTracesInterface datastructures; do
+              ../bin/BuildPackages.sh --strict $pkg*
+          done
+        shell: bash
+      - name: "Build Digraphs"
+        run: |
+          GAPROOT=$HOME/gap
+           ./autogen.sh
+          ./configure --with-gaproot=$GAPROOT
+          make -j4 V=1
+          elif [[ -x configure ]]; then
+      - name: "Run DigraphsTestInstall"
+        uses: gap-actions/run-pkg-tests@v2
+      - name: "Run DigraphsTestStandard"
+        run: gap tst/teststandard.g
