@@ -1,18 +1,14 @@
 name: "Lint"
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       linter:
         required: true
         type: string
-  schedule:
-    # Every day at 3:30 AM UTC
-    - cron: '30 3 * * *'
 
 jobs:
   lint:
-    name: "${{ github.event_name == 'workflow_call' && inputs.linter || 'gaplint' }}"
+    name: "${{ inputs.linter }}"
     runs-on: ubuntu-latest
     steps:
     - name: "Check out the repository"
@@ -24,7 +20,7 @@ jobs:
     - name: "Install dependencies with pip"
       run: pip install setuptools
     - name: "Install ${{ inputs.linter }} with pip"
-      run: pip install ${{ github.event_name == 'workflow_call' && inputs.linter || 'gaplint' }}
+      run: pip install ${{ inputs.linter }}
     - name: "Run ${{ inputs.linter }} on the Digraphs package"
-      run: bash etc/${{ github.event_name == 'workflow_call' && inputs.linter || 'gaplint' }}.sh
+      run: bash etc/${{ inputs.linter }}.sh
 

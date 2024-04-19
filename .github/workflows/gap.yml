@@ -1,6 +1,5 @@
 name: "GAP"
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       os:
@@ -16,9 +15,6 @@ on:
         required: false
         type: string
         default: ''
-  schedule:
-    # Every day at 3:30 AM UTC
-    - cron: '30 3 * * *'
 
 env:
   DIGRAPHS_LIB: digraphs-lib-0.6

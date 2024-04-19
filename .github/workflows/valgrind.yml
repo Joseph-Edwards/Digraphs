@@ -1,6 +1,5 @@
 name: "Valgrind"
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       gap-branch:
@@ -13,15 +12,12 @@ on:
         required: true
         type: string
 
-env:
-  DIGRAPHS_LIB: digraphs-lib-0.6
-
 jobs:
   test-valgrind:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
-      - name: "Install dependencies"
+      - name: "Install Valgrind"
         run: sudo apt-get install valgrind
       - name: "Install GAP and clone/compile necessary packages"
         uses: gap-actions/setup-gap@v2
@@ -35,10 +31,6 @@ jobs:
         uses: gap-actions/build-pkg@v1
         with:
           ABI: ${{ inputs.ABI }}
-      - name: "Install digraphs-lib"
-        run: |
-          curl --retry 5 -L -O "https://digraphs.github.io/Digraphs/${{ env.DIGRAPHS_LIB }}.tar.gz"
-          tar xf "${{ env.DIGRAPHS_LIB }}.tar.gz"
       - name: "Clone datastructures v0.3.0"
         run: |
           if [ ! -d $HOME/gap/pkg/datastructures ]; then

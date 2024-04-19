@@ -1,13 +1,18 @@
 name: "PR"
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:
       - main
       - stable-*.*
+  schedule:
+    # Every day at 3:30 AM UTC
+    - cron: '30 3 * * *'
 
 jobs:
   codespell:
+    if: github.event_name != 'schedule'
     uses: Joseph-Edwards/Digraphs/.github/workflows/codespell.yml@ci
   
   lint:
@@ -69,8 +74,9 @@ jobs:
     uses: Joseph-Edwards/Digraphs/.github/workflows/external_planarity_bliss.yml@ci
     
   valgrind:
+    if: github.event_name != 'schedule'
     needs: gap
-    name: "ubuntu${{ matrix.ABI }} / GAP ${{ matrix.gap-branch }}"
+    name: "ubuntu${{ matrix.ABI }}: GAP ${{ matrix.gap-branch }}"
     strategy:
       fail-fast: false
       matrix:
