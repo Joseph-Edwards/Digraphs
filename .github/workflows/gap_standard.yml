@@ -1,7 +1,10 @@
-name: "Valgrind"
+name: "GAP Standard"
 on:
   workflow_call:
     inputs:
+      os:
+        required: true
+        type: string
       gap-branch:
         required: true
         type: string
@@ -13,13 +16,17 @@ on:
         type: string
         default: ''
 
+env:
+  DIGRAPHS_LIB: digraphs-lib-0.6
+
 jobs:
-  test-valgrind:
-    runs-on: "ubuntu-latest"
+  test-standard:
+    runs-on: "${{ inputs.os }}-latest"
     steps:
       - uses: actions/checkout@v4
-      - name: "Install Valgrind"
-        run: sudo apt-get install valgrind
+      - name: "Install dependencies"
+        if: ${{ runner.os == 'macOS' }}
+        run: brew install automake
       - name: "Install GAP and clone/compile necessary packages"
         uses: gap-actions/setup-gap@v2
         with:
@@ -27,11 +34,14 @@ jobs:
           GAP_PKGS_TO_BUILD: "io orb profiling grape NautyTracesInterface datastructures"
           GAPBRANCH: ${{ inputs.gap-branch }}
           ABI: ${{ inputs.ABI }}
-          CONFIGFLAGS: "--enable-valgrind"
       - name: "Build Digraphs"
         uses: gap-actions/build-pkg@v1
         with:
           ABI: ${{ inputs.ABI }}
+      - name: "Install digraphs-lib"
+        run: |
+          curl --retry 5 -L -O "https://digraphs.github.io/Digraphs/${{ env.DIGRAPHS_LIB }}.tar.gz"
+          tar xf "${{ env.DIGRAPHS_LIB }}.tar.gz"
       - name: "Clone datastructures v0.3.0"
         run: |
           if [ ! -d $HOME/gap/pkg/datastructures ]; then
@@ -46,9 +56,13 @@ jobs:
         uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: "tst/github_actions/install.g"
-          NO_COVERAGE: 'true' 
       - name: "Run DigraphsTestStandard"
         uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: "tst/github_actions/standard.g"
-          NO_COVERAGE: 'true' 
+      - name: "Run DigraphsTestManualExamples"
+        uses: gap-actions/run-pkg-tests@v2
+        with:
+          GAP_TESTFILE: "tst/github_actions/examples.g"
+      - uses: gap-actions/process-coverage@v2
+      - uses: codecov/codecov-action@v3

@@ -1,4 +1,4 @@
-name: "GAP"
+name: "GAP Extreme"
 on:
   workflow_call:
     inputs:
@@ -20,7 +20,7 @@ env:
   DIGRAPHS_LIB: digraphs-lib-0.6
 
 jobs:
-  tests:
+  test-extreme:
     runs-on: "${{ inputs.os }}-latest"
     steps:
       - uses: actions/checkout@v4
@@ -52,21 +52,8 @@ jobs:
             ./configure
             make
           fi
-      - name: "Run DigraphsTestInstall"
-        uses: gap-actions/run-pkg-tests@v2
-        with:
-          GAP_TESTFILE: "tst/github_actions/install.g"
-      - name: "Run DigraphsTestStandard"
-        uses: gap-actions/run-pkg-tests@v2
-        with:
-          GAP_TESTFILE: "tst/github_actions/standard.g"
-      - name: "Run DigraphsTestManualExamples"
-        uses: gap-actions/run-pkg-tests@v2
-        with:
-          GAP_TESTFILE: "tst/github_actions/examples.g"
       - name: "Run DigraphsTestExtreme"
         uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: "tst/github_actions/extreme.g"
-      - uses: gap-actions/process-coverage@v2
-      - uses: codecov/codecov-action@v3
+
