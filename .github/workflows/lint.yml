@@ -1,5 +1,11 @@
 name: "Lint"
 on:
+  workflow_dispatch:
+    inputs:
+      linter:
+        required: true
+        type: string
+        default: 'gaplint'
   workflow_call:
     inputs:
       linter:

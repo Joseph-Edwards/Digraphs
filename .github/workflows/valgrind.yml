@@ -1,5 +1,19 @@
 name: "Valgrind"
 on:
+  workflow_dispatch:
+    inputs:
+      gap-branch:
+        required: true
+        type: string
+        default: master
+      pkgs-to-clone:
+        required: true
+        type: string
+        default: NautyTracesInterface
+      ABI:
+        required: false
+        type: string
+        default: ''
   workflow_call:
     inputs:
       gap-branch:

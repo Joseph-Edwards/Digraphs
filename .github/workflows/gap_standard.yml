@@ -1,5 +1,23 @@
 name: "GAP Standard"
 on:
+  workflow_dispatch:
+    inputs:
+      os:
+        required: true
+        type: string
+        default: ubuntu
+      gap-branch:
+        required: true
+        type: string
+        default: master
+      pkgs-to-clone:
+        required: true
+        type: string
+        default: NautyTracesInterface
+      ABI:
+        required: false
+        type: string
+        default: ''
   workflow_call:
     inputs:
       os:
