@@ -26,6 +26,8 @@ on:
         required: false
         type: string
         default: ''
+env:
+  VALGRIND: valgrind --trace-children=yes --leak-check=full
 
 jobs:
   test-valgrind:
@@ -57,12 +59,14 @@ jobs:
             make
           fi
       - name: "Run DigraphsTestInstall"
-        uses: gap-actions/run-pkg-tests@v2
+        uses: ./.github/actions/test_with_valgrind
         with:
           GAP_TESTFILE: "tst/github_actions/install.g"
-          NO_COVERAGE: 'true' 
+          NO_COVERAGE: 'true'
+          pre-gap: ${{ env.VALGRIND }}
       - name: "Run DigraphsTestStandard"
-        uses: gap-actions/run-pkg-tests@v2
+        uses: ./.github/actions/test_with_valgrind
         with:
           GAP_TESTFILE: "tst/github_actions/standard.g"
           NO_COVERAGE: 'true' 
+          pre-gap: ${{ env.VALGRIND }}
