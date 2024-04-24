@@ -27,7 +27,7 @@ on:
         type: string
         default: ''
 env:
-  VALGRIND: valgrind --trace-children=yes --leak-check=full
+  VALGRIND: valgrind --trace-children=yes --leak-check=full --error-exitcode=1
 
 jobs:
   test-valgrind:
