@@ -413,7 +413,7 @@ DigraphCliques);
 
 InstallGlobalFunction(DigraphCliques,
 function(arg)
-  local D, include, exclude, limit, size, out;
+  # local D, include, exclude, limit, size;
 
   if IsEmpty(arg) then
     ErrorNoReturn("there must be at least 1 argument,");
